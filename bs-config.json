@@ -1,0 +1,6 @@
+{
+	"port": 5050,
+	"files": [
+		"./index.html", "./app/**/*.js"
+	]
+}
