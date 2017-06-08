@@ -7,9 +7,9 @@ npm uninstall --save core-js rxjs bootstrap-sass jquery moment zone.js systemjs 
 
 
 // npm i -D babel-core babel-plugin-angularjs-annotate babel-plugin-transform-decorators babel-preset-es2015
-npm i -D @types/core-js concurrently lite-server typescript tslint
+npm i -D @types/core-js concurrently lite-server typescript tslint codelyzer
 
-npm uninstall --save-dev @types/core-js concurrently lite-server typescript tslint
+npm uninstall --save-dev @types/core-js concurrently lite-server typescript tslint codelyzer
 
 angular 4 events
 (focus)="myMethod()"  // An element has received focus

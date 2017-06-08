@@ -1,7 +1,8 @@
 {
-    // "rulesDirectory": [
-    //     "node_modules/codelyzer"
-    // ],
+    "rulesDirectory": [
+        "node_modules/codelyzer"
+    ],
+    "extends": [ "codelyzer" ],
     "rules": {
         "callable-types": true,
         "class-name": true,
@@ -97,7 +98,6 @@
             "check-separator",
             "check-type"
         ],
-
         "directive-selector": [true, "attribute", "app", "camelCase"],
         "component-selector": [true, "element", "app", "kebab-case"],
         "use-input-property-decorator": true,

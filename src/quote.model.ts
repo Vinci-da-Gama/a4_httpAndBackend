@@ -1,4 +1,4 @@
 export interface Quote {
-  line: string;
-  author: string;
+	line: string;
+	author: string;
 }
