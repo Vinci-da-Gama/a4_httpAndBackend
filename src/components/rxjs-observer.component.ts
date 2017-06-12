@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
-	// moduleId: module.id,
 	selector: 'rxjs-observer',
 	template: `
 		<p class="fz2em text-primary">
@@ -11,20 +9,20 @@ import { Observable } from 'rxjs/Observable';
         <div class="row">
 			<div class="col-xs-12 col-sm-4">
 				<p>
-					Callback Result:
-					<strong class="fz2em">{{es6Result}}</strong>
+					Rxjs Result:
+					<strong class="fz2em">{{rxjsResult}}</strong>
 				</p>
 			</div>
 			<div class="col-xs-12 col-sm-4">
 				<p>
-					Callback Time:
-					<b class="fz2em">{{es6Time}}</b>
+					Rxjs Time:
+					<b class="fz2em">{{rxjsTime}}</b>
 				</p>
 			</div>
 			<div class="col-xs-12 col-sm-4">
 				<p>
-					Callback Error:
-					<b class="fz2em">{{es6Error}}</b>
+					Rxjs Error:
+					<b class="fz2em">{{rxjsError}}</b>
 				</p>
 			</div>
 		</div>
@@ -37,29 +35,47 @@ import { Observable } from 'rxjs/Observable';
 })
 export class RxjsObserverComponent implements OnInit {
 
-	es6Result: number = 0;
-	es6Time: number = 0;
-	es6Error: string = 'No Error At Begin.';
+	rxjsResult: number = 0;
+	rxjsTime: number = 0;
+	rxjsError: string = 'No Error At Begin.';
+	// private data: Observable<number>;
 
 	constructor() {
 		const StartTime = Date.now();
+		//////////////////////////////////////////////////////////////
+		// this.addXy(5, 3)                                         //
+		// 	.then(rz => this.addXy(rz, 3))                          //
+		// 	.then(rz => this.addXy(rz, 3))                          //
+		// 	.then(rz => { this.rxjsResult = rz; })                  //
+		// 	.catch((err: string) => this.rxjsError = err)           //
+		// 	.then(() => { this.rxjsTime = Date.now() - StartTime });//
+		//////////////////////////////////////////////////////////////
 		this.addXy(5, 3)
-		.then(rz => this.addXy(rz, -10))
-		.then(rz => this.addXy(rz, 3))
-		.then(rz => { this.es6Result = rz; })
-		.catch((err: string) => this.es6Error = err)
-		.then(() => { this.es6Time = Date.now() - StartTime });
+			.then(rz => this.addXy(rz, 3))
+			.then(rz => this.addXy(rz, 3))
+			.then(rz => { this.rxjsResult = rz; })
+			.catch((err: string) => this.rxjsError = err)
+			.then(() => { this.rxjsTime = Date.now() - StartTime });
 	}
 
-	ngOnInit() {
+	ngOnInit() {}
 
-	}
-
-	// () => void
-	////////////////////////////////////////////////////////////////////////////////////
-	// x have to accept multiple types, so it use type as any. may need more digging. //
-	////////////////////////////////////////////////////////////////////////////////////
-	addXy(x, y: number): Promise<number> {
+	//////////////////////////////////////////////////////
+	// addXy(x, y:number): Observable<number> {         //
+	// 	return new Observable(observer => {             //
+	// 		setTimeout(() => {                             //
+	// 			const sum: number = x + y;                    //
+	// 			if (sum > 0) {                                //
+	// 				observer.next(sum);                          //
+	// 				observer.complete();                         //
+	// 			} else {                                      //
+	// 				observer.error(`Invalid Value is: ${sum}.`); //
+	// 			}                                             //
+	// 		}, 100);                                       //
+	// 	});                                             //
+	// }                                                //
+	//////////////////////////////////////////////////////
+	addXy(x, y:number): Promise<number> {
 		return new Promise((resolveFunc: Function, rejectFunc: Function) => {
 			setTimeout(() => {
 				const rz = x+y;
