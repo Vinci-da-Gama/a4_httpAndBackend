@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import Rx from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
 
 @Component({
 	selector: 'rxjs-observer',
@@ -38,21 +42,18 @@ export class RxjsObserverComponent implements OnInit {
 	rxjsResult: number = 0;
 	rxjsTime: number = 0;
 	rxjsError: string = 'No Error At Begin.';
-	// private data: Observable<number>;
 
 	constructor() {
 		const StartTime = Date.now();
-		//////////////////////////////////////////////////////////////
-		// this.addXy(5, 3)                                         //
-		// 	.then(rz => this.addXy(rz, 3))                          //
-		// 	.then(rz => this.addXy(rz, 3))                          //
-		// 	.then(rz => { this.rxjsResult = rz; })                  //
-		// 	.catch((err: string) => this.rxjsError = err)           //
-		// 	.then(() => { this.rxjsTime = Date.now() - StartTime });//
-		//////////////////////////////////////////////////////////////
-		this.addXy(5, 3)
-			.then(rz => this.addXy(rz, 3))
-			.then(rz => this.addXy(rz, 3))
+		// this.addXy(5, 3)
+		// 	.then(rz => this.addXy(rz, 3))
+		// 	.then(rz => this.addXy(rz, 3))
+		// 	.then(rz => { this.rxjsResult = rz; })
+		// 	.catch((err: string) => this.rxjsError = err)
+		// 	.then(() => { this.rxjsTime = Date.now() - StartTime });
+		this.addXy(5, 3).toPromise()
+			.then(rz => this.addXy(rz, 3).toPromise())
+			.then(rz => this.addXy(rz, 3).toPromise())
 			.then(rz => { this.rxjsResult = rz; })
 			.catch((err: string) => this.rxjsError = err)
 			.then(() => { this.rxjsTime = Date.now() - StartTime });
@@ -60,32 +61,31 @@ export class RxjsObserverComponent implements OnInit {
 
 	ngOnInit() {}
 
-	//////////////////////////////////////////////////////
-	// addXy(x, y:number): Observable<number> {         //
-	// 	return new Observable(observer => {             //
-	// 		setTimeout(() => {                             //
-	// 			const sum: number = x + y;                    //
-	// 			if (sum > 0) {                                //
-	// 				observer.next(sum);                          //
-	// 				observer.complete();                         //
-	// 			} else {                                      //
-	// 				observer.error(`Invalid Value is: ${sum}.`); //
-	// 			}                                             //
-	// 		}, 100);                                       //
-	// 	});                                             //
-	// }                                                //
-	//////////////////////////////////////////////////////
-	addXy(x, y:number): Promise<number> {
-		return new Promise((resolveFunc: Function, rejectFunc: Function) => {
+	addXy(x, y:number): Observable<number> {
+		return Rx.Observable.create(observer => {
 			setTimeout(() => {
-				const rz = x+y;
-				if (rz > 0) {
-					resolveFunc(x + y);
+				const sum: number = x + y;
+				if (sum > 0) {
+					observer.next(sum);
+					observer.complete();
 				} else {
-					rejectFunc('Negative value is invalid: ' + String(rz));
+					observer.error(`Invalid Value is: ${sum}.`);
 				}
 			}, 100);
-		})
+		});
 	}
+
+	// addXy(x, y:number): Promise<number> {
+	// 	return new Promise((resolveFunc: Function, rejectFunc: Function) => {
+	// 		setTimeout(() => {
+	// 			const rz = x+y;
+	// 			if (rz > 0) {
+	// 				resolveFunc(x + y);
+	// 			} else {
+	// 				rejectFunc('Negative value is invalid: ' + String(rz));
+	// 			}
+	// 		}, 100);
+	// 	})
+	// }
 
 }
