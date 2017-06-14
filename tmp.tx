@@ -1,3 +1,37 @@
+var toptableRow = $('.table-striped.table-hover tbody > tr');
+    var infoModal = $('#tableRow_Modal-sAmple');
+    toptableRow.click(function(e) {
+        var trowData = $(this).children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+        // alert(
+        //     "Your data is: " + $.trim(trowData[0]) + " , " + $.trim(trowData[1]) + " , " + $.trim(trowData[2]) + " , " + $.trim(trowData[3]) + " , " + $.trim(trowData[4]) + " , " + $.trim(trowData[5])
+        // );
+        infoModal.modal('toggle');
+    });
+    infoModal.on('show.bs.modal', function() {
+        var m = $(this);
+        console.log('26 -- modal show...');
+        m.find('.sth-modal-title').text('hahaha_title');
+        m.find('.sth_modal-body')
+            .append('<div class="table-responsive">'+
+                        '<table class="table table-striped table-hover">'+
+                            '<thead>'+
+                                '<tr>'+
+                                    '<th>title</th>'+
+                                '</tr>'+
+                            '</thead>'+
+                            '<tbody>'+
+                                '<tr>'+
+                                    '<td>value</td>'+
+                                '</tr>'+
+                            '</tbody>'+
+                        '</table>'+
+                    '</div>'
+            );
+    });
+
 // tslint.json
 {
     "rulesDirectory": [

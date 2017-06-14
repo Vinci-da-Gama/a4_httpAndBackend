@@ -43,11 +43,11 @@ export class Es6PromiseComponent implements OnInit {
 	constructor() {
 		const StartTime = Date.now();
 		this.addXy(5, 3)
-		.then(rz => this.addXy(rz, -10))
-		.then(rz => this.addXy(rz, 3))
-		.then(rz => { this.es6Result = rz; })
-		.catch((err: string) => this.es6Error = err)
-		.then(() => { this.es6Time = Date.now() - StartTime });
+			.then(rz => this.addXy(rz, -10))
+			.then(rz => this.addXy(rz, 3))
+			.then(rz => { this.es6Result = rz; })
+			.catch((err: string) => this.es6Error = err)
+			.then(() => { this.es6Time = Date.now() - StartTime });
 	}
 
 	ngOnInit() {
@@ -58,10 +58,10 @@ export class Es6PromiseComponent implements OnInit {
 	////////////////////////////////////////////////////////////////////////////////////
 	// x have to accept multiple types, so it use type as any. may need more digging. //
 	////////////////////////////////////////////////////////////////////////////////////
-	addXy(x, y: number): Promise<number> {
+	addXy(x: number, y: number): Promise<number> {
 		return new Promise((resolveFunc: Function, rejectFunc: Function) => {
 			setTimeout(() => {
-				const rz = x+y;
+				const rz = x + y;
 				if (rz > 0) {
 					resolveFunc(x + y);
 				} else {

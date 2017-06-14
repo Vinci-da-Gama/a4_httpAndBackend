@@ -5,7 +5,7 @@ import { QuoteService } from './quote.service';
 @Component({
 	selector: 'my-app',
 	template: `
-		<h1>Quote Of The Day</h1>
+		<h1>Promise and Observer</h1>
 		<p><em>{{quote.line}}</em> - {{quote.author}}</p>
 		<br />
 		<div class="row">

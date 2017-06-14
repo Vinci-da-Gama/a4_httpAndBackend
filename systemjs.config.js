@@ -1,7 +1,7 @@
 (function () {
 	// map tells the System loader where to look for things
 	var map = {
-		'app': 'app',
+		'appSystem': 'app',
 		'@angular': 'node_modules/@angular',
 		'rxjs': 'node_modules/rxjs'
 	};
